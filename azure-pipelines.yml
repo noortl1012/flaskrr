@@ -26,4 +26,13 @@ steps:
     source env/bin/activate
     pytest
   displayName: 'Run tests'
+- script: |
+    source env/bin/activate
+    coverage run -m pytest
+  displayName: 'Run tests with code coverage'
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
+  displayName: 'Publish code coverage results'
 
