@@ -41,7 +41,6 @@ app.config.from_object(__name__)
 db = SQLAlchemy(app)
 
 
-
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
