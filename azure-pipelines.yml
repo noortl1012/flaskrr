@@ -24,6 +24,7 @@ steps:
     flake8 .
   displayName: 'Run Flake8 lint'
 - script: |
+    pip install pytest
     pytest tests/
   displayName: 'Run unit tests'
 - script: |
