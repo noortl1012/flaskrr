@@ -1,0 +1,32 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    python -m venv env
+    source env/bin/activate
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
+- script: |
+    pip install flake8
+    flake8 .
+  displayName: 'Run Flake8 lint'
+- script: |
+    pytest tests/
+  displayName: 'Run unit tests'
+- script: |
+    coverage run -m pytest tests/
+    coverage report -m
+  displayName: 'Run coverage tests'
