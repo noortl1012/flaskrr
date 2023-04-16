@@ -15,8 +15,7 @@ steps:
 
 - script: |
     python -m venv env
-    source env/bin/activate
-    python -m pip install --upgrade pip
+    .\env\Scripts\activate
     pip install -r requirements.txt
   displayName: 'Install dependencies'
 - script: |
@@ -24,6 +23,7 @@ steps:
     flake8 .
   displayName: 'Run Flake8 lint'
 - script: |
+    pip install 
     pip install pytest
     pytest tests/
   displayName: 'Run unit tests'
