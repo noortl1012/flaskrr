@@ -1,6 +1,8 @@
 import os
 from functools import wraps
 from pathlib import Path
+from flask_sqlalchemy import SQLAlchemy
+from project import models
 
 from flask import (
     Flask,
@@ -13,7 +15,6 @@ from flask import (
     abort,
     jsonify,
 )
-from flask_sqlalchemy import SQLAlchemy
 
 
 basedir = Path(__file__).resolve().parent
@@ -39,7 +40,6 @@ app.config.from_object(__name__)
 # init sqlalchemy
 db = SQLAlchemy(app)
 
-from project import models
 
 
 def login_required(f):

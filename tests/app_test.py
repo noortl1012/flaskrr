@@ -21,6 +21,7 @@ def client():
     with app.app_context():
         db.drop_all()  # teardown
 
+
 def login(client, username, password):
     """Login helper function"""
     return client.post(
