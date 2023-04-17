@@ -25,6 +25,7 @@ steps:
 - script: |
     pip install 
     pip install pytest
+    pip install --upgrade sqlalchemy
     pytest tests/
   displayName: 'Run unit tests'
 - script: |
