@@ -2,7 +2,6 @@ import os
 from functools import wraps
 from pathlib import Path
 from flask_sqlalchemy import SQLAlchemy
-from project import models
 
 from flask import (
     Flask,
@@ -39,6 +38,9 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 # init sqlalchemy
 db = SQLAlchemy(app)
+
+# flake8: noqa
+from project import models
 
 
 def login_required(f):
