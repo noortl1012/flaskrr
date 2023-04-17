@@ -37,7 +37,7 @@ app = Flask(__name__)
 # load the config
 app.config.from_object(__name__)
 # init sqlalchemy
-db = SQLAlchemy(app)
+db = SQLAlchemy(app) # noqa: F401
 
 # flake8: noqa
 from project import models
