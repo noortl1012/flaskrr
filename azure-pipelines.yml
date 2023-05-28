@@ -24,6 +24,9 @@ stages:
         displayName: 'Run Unit Tests'
         steps:
           - script: |
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+              pip install --upgrade SQLAlchemy
               pytest tests/
 
       - job: CodeCoverage
