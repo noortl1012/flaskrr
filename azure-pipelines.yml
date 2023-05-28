@@ -24,7 +24,6 @@ stages:
         displayName: 'Run Unit Tests'
         steps:
           - script: |
-              pip install -r requirements.txt
               pytest tests/
 
       - job: CodeCoverage
