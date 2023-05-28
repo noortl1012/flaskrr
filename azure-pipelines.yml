@@ -37,3 +37,7 @@ stages:
               coverage run -m pytest
               coverage report
             displayName: 'Run Code Coverage'
+          - task: PublishCodeCoverageResults@1
+            inputs:
+              codeCoverageTool: Cobertura
+              summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage.xml
