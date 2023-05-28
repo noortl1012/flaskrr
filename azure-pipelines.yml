@@ -27,6 +27,7 @@ stages:
           displayName: 'Setup Python environment'
 
         - script: |
+            pip install flake8
             flake8
           displayName: 'Linting'
 
