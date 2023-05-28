@@ -64,10 +64,25 @@ stages:
         inputs:
           targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
           artifactName: 'MyArtifact'
-    - job: Download
-      displayName: 'Download Artifact'
+          
+    - job: BuildAndDockerize
+      displayName: 'Build and Dockerize'
+      pool:
+        vmImage: 'ubuntu-latest'
       steps:
-      - task: DownloadPipelineArtifact@2
+      - checkout: self
+
+      - task: Docker@2
+        displayName: 'Build Docker Image'
         inputs:
-          artifactName: 'MyArtifact'
-          targetPath: '$(Pipeline.Workspace)/Artifacts'
+         command: build
+         containerRegistry: 'YourContainerRegistryConnection'  # Specify the name of your container registry connection
+         repository: 'your-repo-name'
+         Dockerfile: '**/Dockerfile'
+
+      - task: Docker@2
+        displayName: 'Push Docker Image'
+        inputs:
+          command: push
+          containerRegistry: 'YourContainerRegistryConnection'  # Specify the name of your container registry connection
+          repository: 'your-repo-name'
