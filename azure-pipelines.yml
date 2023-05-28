@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- azure-pipelines
 
 pool:
   vmImage: ubuntu-latest
@@ -32,10 +32,13 @@ stages:
           displayName: 'Linting'
 
         - script: |
+            pip install flask_sqlalchemy
+            pip install pytest
             pytest tests/
           displayName: 'Run Tests'
 
         - script: |
+            pip install coverage
             coverage run -m pytest 
             coverage report -m
             coverage xml
@@ -46,4 +49,25 @@ stages:
             codeCoverageTool: Cobertura
             summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage.xml
           condition: succeededOrFailed()
-
+    
+    - job: Archive
+      displayName: 'Archive Files'
+      steps:
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(Build.BinariesDirectory)'
+          includeRootFolder: true
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          replaceExistingArchive: true
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          artifactName: 'MyArtifact'
+    - job: Download
+      displayName: 'Download Artifact'
+      steps:
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          artifactName: 'MyArtifact'
+          targetPath: '$(Pipeline.Workspace)/Artifacts'
