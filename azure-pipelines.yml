@@ -49,4 +49,15 @@ stages:
             codeCoverageTool: Cobertura
             summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage.xml
           condition: succeededOrFailed()
+    
+    - job: Archive
+      displayName: 'Archive Files'
+      steps:
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(Build.BinariesDirectory)'
+          includeRootFolder: true
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          replaceExistingArchive: true
 
