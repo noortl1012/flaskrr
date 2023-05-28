@@ -121,6 +121,7 @@ def search():
         return render_template("search.html", entries=entries, query=query)
     return render_template("search.html")
 
+db.create_all()
 
 if __name__ == "__main__":
     app.run()
