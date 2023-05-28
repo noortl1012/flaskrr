@@ -27,15 +27,16 @@ stages:
           displayName: 'Setup Python environment'
 
         - script: |
-            python -m flake8
+            flake8
           displayName: 'Linting'
 
         - script: |
-            coverage run -m pytest tests/
+            pytest tests/
           displayName: 'Run Tests'
 
         - script: |
-            coverage report
+            coverage run -m pytest 
+            coverage report -m
             coverage xml
           displayName: 'Generate Code Coverage'
 
