@@ -2,3 +2,4 @@
 exclude = env/*
 max-line-length = 120
 ignore = E501,W503
+ignore = E402,E203,F401
