@@ -60,4 +60,14 @@ stages:
           archiveType: 'zip'
           archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
           replaceExistingArchive: true
-
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          artifactName: 'MyArtifact'
+    - job: Download
+      displayName: 'Download Artifact'
+      steps:
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          artifactName: 'MyArtifact'
+          targetPath: '$(Pipeline.Workspace)/Artifacts'
