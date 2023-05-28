@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- azure-pipelines
 
 pool:
   vmImage: ubuntu-latest
@@ -38,6 +38,7 @@ stages:
           displayName: 'Run Tests'
 
         - script: |
+            pip install coverage
             coverage run -m pytest 
             coverage report -m
             coverage xml
