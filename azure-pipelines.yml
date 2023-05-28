@@ -32,6 +32,7 @@ stages:
           displayName: 'Linting'
 
         - script: |
+            pip install flask_sqlalchemy
             pip install pytest
             pytest tests/
           displayName: 'Run Tests'
