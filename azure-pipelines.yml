@@ -63,3 +63,11 @@ stages:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
             ArtifactName: 'drop'
             publishLocation: 'Container'
+        - task: Docker@2
+          displayName: 'Build and Push Docker Image'
+          inputs:
+            command: buildAndPush
+            containerRegistry: 'dock'  # Specify the name of your container registry connection
+            repository: 'flaskr-tdd'
+            Dockerfile: '**/Dockerfile'
+            tags: '$(Build.BuildId)'
