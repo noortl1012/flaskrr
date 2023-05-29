@@ -50,39 +50,16 @@ stages:
             summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage.xml
           condition: succeededOrFailed()
     
-    - job: Archive
-      displayName: 'Archive Files'
-      steps:
-      - task: ArchiveFiles@2
-        inputs:
-          rootFolderOrFile: '$(Build.BinariesDirectory)'
-          includeRootFolder: true
-          archiveType: 'zip'
-          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-          replaceExistingArchive: true
-      - task: PublishPipelineArtifact@1
-        inputs:
-          targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-          artifactName: 'MyArtifact'
+        - task: ArchiveFiles@2
+          inputs:
+            rootFolderOrFile: '$(Build.BinariesDirectory)'
+            includeRootFolder: true
+            archiveType: 'zip'
+            archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+            replaceExistingArchive: true
           
-    - job: BuildAndDockerize
-      displayName: 'Build and Dockerize'
-      pool:
-        vmImage: 'ubuntu-latest'
-      steps:
-      - checkout: self
-
-      - task: Docker@2
-        displayName: 'Build Docker Image'
-        inputs:
-         command: build
-         containerRegistry: 'YourContainerRegistryConnection'  # Specify the name of your container registry connection
-         repository: 'your-repo-name'
-         Dockerfile: '**/Dockerfile'
-
-      - task: Docker@2
-        displayName: 'Push Docker Image'
-        inputs:
-          command: push
-          containerRegistry: 'YourContainerRegistryConnection'  # Specify the name of your container registry connection
-          repository: 'your-repo-name'
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'
+            publishLocation: 'Container'
