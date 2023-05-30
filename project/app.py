@@ -47,7 +47,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not session.get("logged_in"):
-            flash("Hi Please log in.")
+            flash("Please log in.")
             return jsonify({"status": 0, "message": "Please log in."}), 401
         return f(*args, **kwargs)
 
