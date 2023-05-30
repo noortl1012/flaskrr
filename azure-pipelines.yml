@@ -13,7 +13,7 @@ stages:
     displayName: 'Build and Test'
     jobs:
     - job: BuildAndTest
-      displayName: 'Build, Test, Lint, and Coverage'
+      displayName: 'CI pipeline'
       pool:
         vmImage: 'ubuntu-latest'
       steps:
