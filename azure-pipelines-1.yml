@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+  
+stages:
+- stage: DatabaseDeployment
+  displayName: Database Deployment
+  jobs:
+  - job: DatabaseTasks
+    displayName: Database Tasks
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: |
+        # Execute database deployment tasks here
+        # For example, execute SQL scripts or run migration tools
+      displayName: Execute Database Tasks
